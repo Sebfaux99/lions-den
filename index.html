@@ -534,155 +534,218 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .user-badge strong{color:var(--gold)}
 /* ══════════════════════════════════════════
    MOBILE LAYOUT — max-width 768px
-   Desktop styles are completely untouched
+   Desktop styles completely untouched
 ══════════════════════════════════════════ */
 
 /* ── Mobile bottom nav ── */
-#mobileNav{display:none;position:fixed;bottom:0;left:0;right:0;height:64px;background:rgba(5,7,15,0.97);backdrop-filter:blur(20px);border-top:1px solid rgba(201,168,76,0.12);z-index:400;align-items:center;justify-content:space-around;padding:0 4px;padding-bottom:env(safe-area-inset-bottom)}
-.mob-nav-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 14px;border:none;background:none;color:var(--muted);font-size:9px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;cursor:pointer;transition:color 0.15s;min-width:52px}
+#mobileNav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(4,6,14,0.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid rgba(201,168,76,0.12);z-index:400;align-items:center;justify-content:space-around;padding:10px 4px;padding-bottom:calc(10px + env(safe-area-inset-bottom))}
+.mob-nav-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 12px;border:none;background:none;color:var(--muted);font-size:9px;font-weight:600;letter-spacing:0.4px;text-transform:uppercase;cursor:pointer;transition:all 0.18s;min-width:48px;-webkit-tap-highlight-color:transparent}
 .mob-nav-btn.mob-active{color:var(--gold)}
-.mob-nav-btn svg{transition:stroke 0.15s}
-.mob-nav-btn.mob-active svg{stroke:var(--gold)}
-.mob-fab{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#C9A84C,#A8893C);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(201,168,76,0.45),0 0 0 3px rgba(201,168,76,0.15);transition:all 0.2s;flex-shrink:0;color:#03020A;margin-bottom:6px}
-.mob-fab:active{transform:scale(0.93)}
+.mob-nav-btn.mob-active svg{stroke:var(--gold)!important}
+.mob-nav-btn:active{opacity:0.7;transform:scale(0.94)}
+.mob-fab{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#C9A84C,#A8893C);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(201,168,76,0.5),0 0 0 3px rgba(201,168,76,0.15),0 0 0 6px rgba(201,168,76,0.05);transition:all 0.2s;flex-shrink:0;color:#03020A;margin-bottom:4px;-webkit-tap-highlight-color:transparent}
+.mob-fab:active{transform:scale(0.9);box-shadow:0 2px 10px rgba(201,168,76,0.4)}
 
 /* ── Mobile more menu ── */
 #mobMoreMenu{display:none;position:fixed;inset:0;z-index:450}
 #mobMoreMenu.open{display:block}
-#mobMoreBackdrop{position:absolute;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px)}
-#mobMorePanel{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(160deg,#0C1022,#080C18);border:1px solid rgba(201,168,76,0.18);border-radius:20px 20px 0 0;padding-bottom:80px;animation:slide-up 0.25s ease-out}
+#mobMoreBackdrop{position:absolute;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+#mobMorePanel{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(160deg,#0D1025,#080C18);border:1px solid rgba(201,168,76,0.18);border-bottom:none;border-radius:22px 22px 0 0;padding-bottom:calc(80px + env(safe-area-inset-bottom));animation:slide-up 0.28s cubic-bezier(0.32,0.72,0,1)}
 @keyframes slide-up{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.mob-more-item{display:flex;align-items:center;gap:12px;width:100%;padding:14px 20px;border:none;background:none;color:var(--text);font-size:14px;font-weight:500;cursor:pointer;transition:background 0.15s;text-align:left}
-.mob-more-item:hover,.mob-more-item:active{background:rgba(201,168,76,0.06)}
-.mob-more-item svg{color:var(--muted);flex-shrink:0}
+.mob-more-item{display:flex;align-items:center;gap:14px;width:100%;padding:16px 22px;border:none;background:none;color:var(--text);font-size:15px;font-weight:500;cursor:pointer;transition:background 0.12s;text-align:left;-webkit-tap-highlight-color:transparent}
+.mob-more-item:active{background:rgba(201,168,76,0.08)}
+.mob-more-item svg{color:var(--gold);flex-shrink:0;opacity:0.8}
+.mob-handle{width:36px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin:12px auto 4px;flex-shrink:0}
 
 @media (max-width: 768px) {
-  /* ── Core layout ── */
-  html,body{overflow:auto}
-  .app{flex-direction:column;height:auto;min-height:100vh}
+
+  /* ── Core layout — natural page scroll ── */
+  *{-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{overflow-x:hidden;overflow-y:auto;background:var(--bg)}
+  .app{display:block;height:auto;min-height:100vh}
   .sidebar{display:none!important}
-  .main{flex:1;overflow:visible}
+  .main{display:block;width:100%;min-height:100vh}
   #mobileNav{display:flex}
 
-  /* ── Topbar ── */
-  .topbar{padding:11px 14px;position:sticky;top:0}
-  .topbar-left h1{font-size:16px}
+  /* ── Topbar — sticky at top ── */
+  .topbar{position:sticky;top:0;z-index:50;padding:11px 14px;gap:8px}
+  .topbar-left h1{font-size:15px;font-weight:700}
+  .topbar-left p{display:none}
   .topbar-live{display:none!important}
   #userBadge{display:none!important}
-  .ghost-btn span,.ghost-btn svg+*{display:none}
-  .topbar-right .ghost-btn{padding:7px 10px}
-  .topbar-right .primary-btn span:not(:first-child){display:none}
+  /* Hide text from ghost buttons, keep icons */
+  .ghost-btn{padding:8px 10px}
+  .ghost-btn span:not(:first-child){display:none}
+  /* Keep scan slip & export icon only */
+  .topbar-right .ghost-btn{font-size:0}
+  .topbar-right .ghost-btn svg{display:block}
 
-  /* ── Ticker ── */
-  .ticker-wrap{display:none}
+  /* ── Ticker — hide on mobile ── */
+  .ticker-wrap{display:none!important}
 
-  /* ── Pages ── */
-  .page{padding:12px 12px 80px;gap:12px;overflow:visible}
+  /* ── Pages — natural scroll with bottom nav clearance ── */
+  .page{
+    display:none;
+    flex-direction:column;
+    padding:14px 14px calc(100px + env(safe-area-inset-bottom));
+    gap:13px;
+    min-height:calc(100vh - 52px);
+  }
+  .page.active{display:flex}
 
-  /* ── KPI grid — 2 columns on mobile ── */
-  .kpi-grid{grid-template-columns:repeat(2,1fr);gap:9px}
-  .kpi-val{font-size:18px}
-  .kpi-lbl{font-size:8px}
-  #analyticsKpis{grid-template-columns:repeat(2,1fr);gap:9px}
-  #holdingsSummary,#holdingsKpis{grid-template-columns:repeat(2,1fr);gap:9px}
+  /* ── KPI grid — 2×2 ── */
+  .kpi-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .kpi-val{font-size:20px;letter-spacing:-0.5px}
+  .kpi-lbl{font-size:8.5px}
+  .kpi-meta{font-size:10px}
+  #analyticsKpis{grid-template-columns:repeat(2,1fr);gap:10px}
+  #holdingsSummary,#holdingsKpis{grid-template-columns:repeat(2,1fr);gap:10px}
 
-  /* ── Two/three column → single column ── */
-  .two-col,.three-col,.service-grid{grid-template-columns:1fr!important}
+  /* ── Single column layouts ── */
+  .two-col,.three-col,.service-grid{grid-template-columns:1fr!important;gap:12px}
 
   /* ── Cards ── */
-  .card,.card-gold,.roar-card,.kill-card,.dna-card{padding:14px}
+  .card,.card-gold,.roar-card,.kill-card,.dna-card{padding:14px;border-radius:12px}
   .card-hd{margin-bottom:10px}
+  .card-title{font-size:13px}
+  .card-sub{font-size:10px}
 
-  /* ── Charts ── */
-  .card-gold{min-height:auto}
-  #pnlWrap{height:160px!important}
-  #dnaChart{height:180px}
-  #drillChartWrap{height:130px!important}
+  /* ── P&L Chart ── */
+  #pnlWrap{height:150px!important}
+
+  /* ── DNA Chart ── */
+  #dnaChart{height:200px!important}
 
   /* ── Donut ── */
   #donutChart{height:130px!important}
 
-  /* ── Tables — horizontal scroll ── */
-  .tbl{min-width:560px}
-  .card[style*="padding:0"]{overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .drill-tbl-wrap{overflow-x:auto}
-  #drillTable{min-width:480px}
+  /* ── Drill chart ── */
+  #drillChartWrap{height:130px!important}
 
-  /* ── Bet log table ── */
-  #betsTableCard{overflow-x:auto;padding:0}
-  #betsTableCard .tbl{min-width:620px}
+  /* ── Tables — horizontal scroll within container ── */
+  .card[style*="overflow:hidden"]{overflow-x:auto!important;-webkit-overflow-scrolling:touch}
+  #betsTableCard{overflow-x:auto;padding:0;-webkit-overflow-scrolling:touch}
+  .tbl{min-width:580px}
+  .drill-tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  #drillTable{min-width:460px}
+  .market-section-body.open{max-height:none;overflow:visible}
+  .market-section-inner{overflow-x:auto;-webkit-overflow-scrolling:touch}
 
-  /* ── Modals — slide up from bottom ── */
+  /* ── Modals — full-screen sheet from bottom ── */
   .overlay{align-items:flex-end;padding:0}
-  .modal,.scan-modal{width:100vw;max-width:100vw;max-height:92vh;border-radius:20px 20px 0 0;border-left:none;border-right:none;border-bottom:none}
-  .modal-hd,.modal-ft{padding:16px 18px}
-  .modal-body{padding:16px 18px}
-  .form-grid{grid-template-columns:1fr!important}
+  .modal,.scan-modal{
+    width:100vw;max-width:100vw;
+    max-height:94vh;
+    border-radius:22px 22px 0 0;
+    border-left:none;border-right:none;border-bottom:none;
+    overflow-y:auto;-webkit-overflow-scrolling:touch;
+  }
+  .modal-hd{padding:18px 18px 14px}
+  .modal-body{padding:14px 18px}
+  .modal-ft{padding:14px 18px;padding-bottom:calc(14px + env(safe-area-inset-bottom))}
+  /* Full-width form on mobile */
+  .form-grid{grid-template-columns:1fr!important;gap:12px}
   .fg.full{grid-column:1}
-  .finput,.fselect,.review-field{font-size:16px!important;padding:12px 14px}/* prevent iOS zoom */
+  /* 16px minimum prevents iOS zoom */
+  .finput,.fselect,.review-field,.auth-input{font-size:16px!important;padding:13px 14px}
 
-  /* ── Auth screen ── */
-  .auth-box{width:100%;padding:16px}
-  .auth-card{border-radius:16px;padding:22px 18px}
-  #authScreen{align-items:flex-end;padding:0}
-  .auth-box{padding:0}
-  .auth-card{border-radius:20px 20px 0 0;border-left:none;border-right:none;border-bottom:none;padding-bottom:32px}
-  .auth-logo{padding-top:20px}
+  /* ── Auth screen — bottom sheet ── */
+  #authScreen{align-items:flex-end;justify-content:flex-end;padding:0;background:rgba(4,6,14,0.6)}
+  .auth-box{width:100%;padding:0;max-width:100%}
+  .auth-card{border-radius:22px 22px 0 0;border-left:none;border-right:none;border-bottom:none;padding:20px 20px calc(28px + env(safe-area-inset-bottom));box-shadow:0 -20px 60px rgba(0,0,0,0.6)}
+  .auth-logo{padding:0 0 16px;justify-content:flex-start;gap:10px}
+  .auth-logo .logo-name{font-size:20px}
+  .auth-btn{padding:15px;font-size:15px}
+  .auth-tab{font-size:14px;padding:12px}
 
-  /* ── Drill panel — full width ── */
-  .drill-panel{width:100vw;right:-100vw}
+  /* ── Drill panel — full screen ── */
+  .drill-panel{width:100vw;right:-100vw;top:0;height:100%;border-left:none}
   .drill-panel.open{right:0}
-  .drill-kpis{grid-template-columns:repeat(2,1fr)}
-  .drill-body{padding:12px 14px}
+  .drill-kpis{grid-template-columns:repeat(2,1fr);gap:8px}
+  .drill-body{padding:12px 14px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .drill-hd{flex-direction:column;align-items:flex-start;gap:8px;padding:16px 18px 12px}
+  .drill-close{align-self:flex-end;margin-bottom:-38px}
 
   /* ── ROAR section ── */
-  .roar-gauge-wrap{flex-direction:column;align-items:center;gap:14px}
-  .roar-gauge{width:110px;height:110px}
+  .roar-gauge-wrap{flex-direction:column;align-items:center;gap:16px}
+  .roar-gauge{width:100px;height:100px}
+  .roar-grade{font-size:28px}
+  .roar-card::before{display:none}
 
   /* ── Kill list ── */
-  .kill-item{padding:8px 0}
+  .kill-item{padding:10px 0}
+  .kill-rank{font-size:16px}
 
   /* ── Markets ── */
-  .market-section-hd{flex-direction:column;align-items:flex-start;gap:10px}
-  .market-section-hd > div:last-child{width:100%;overflow-x:auto;padding-bottom:4px}
-  .filter-tabs{flex-wrap:nowrap;overflow-x:auto}
-  .poly-outcome{flex-wrap:nowrap;gap:6px}
-  .poly-name{width:90px;font-size:11px}
-  .poly-log-btn{display:none} /* hide on mobile, tap row instead */
+  .market-section-hd{flex-direction:column;align-items:flex-start;gap:10px;padding:14px}
+  .market-section-hd > div:last-child{width:100%;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch}
+  .filter-tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .filter-tabs::-webkit-scrollbar{display:none}
+  .poly-name{width:80px;font-size:11px}
+  .poly-log-btn{display:none}
   .poly-hd{flex-direction:column;gap:6px}
+  .poly-card{margin-bottom:10px}
+  .mkt-card{margin-bottom:10px}
 
-  /* ── Polymarket cards ── */
-  .poly-card{margin-bottom:8px}
-  .odds-pill{font-size:11px;padding:3px 7px}
+  /* ── Betlog subtitle ── */
+  #betlogSub{font-size:11px}
 
   /* ── Settings ── */
-  .settings-row{flex-direction:column;align-items:flex-start;gap:8px}
-  .settings-row input,.settings-row select{width:100%!important}
+  .settings-row{flex-direction:column;align-items:flex-start;gap:10px;padding:12px 0}
+  .settings-row > div:last-child{width:100%}
+  .settings-row input,.settings-row select,.finput{width:100%!important;max-width:100%}
   #pg-settings > div{max-width:100%}
+  #pg-settings .card{margin-bottom:0}
 
   /* ── Insight items ── */
-  .insight-item{padding:12px}
-
-  /* ── Toast position ── */
-  .toast-stack{bottom:76px;right:12px;left:12px}
-  .toast{min-width:auto;width:100%}
-
-  /* ── Scan modal ── */
-  .scan-modal{border-radius:20px 20px 0 0}
-  .slip-preview{max-height:200px}
+  .insight-item{padding:13px}
+  .ins-title{font-size:13px}
+  .ins-body{font-size:12px}
 
   /* ── Concierge ── */
   .service-card{padding:16px}
+  .service-title{font-size:14px}
 
-  /* ── Holdings summary strip ── */
-  .drill-hd{flex-direction:column;gap:8px}
+  /* ── Toasts — above bottom nav ── */
+  .toast-stack{bottom:calc(72px + env(safe-area-inset-bottom));right:12px;left:12px}
+  .toast{min-width:auto;width:100%;border-radius:10px}
+
+  /* ── Scan modal ── */
+  .scan-modal{border-radius:22px 22px 0 0}
+  .slip-preview{max-height:180px}
+  .review-field{font-size:16px!important}
+
+  /* ── Profile card ── */
+  .profile-card{display:none}
+
+  /* ── ROAR bars ── */
+  .roar-bar-lbl{width:70px;font-size:8px}
+
+  /* ── Heatmap cells ── */
+  .hmap-cell{height:16px!important}
+
+  /* ── Bettor DNA ── */
+  .dna-card{overflow:hidden}
+
+  /* ── Legend list ── */
+  .legend-row{padding:5px 4px}
+
+  /* ── Streak pill ── */
+  .streak-pill{font-size:10px}
+
+  /* ── Nav group labels in sidebar — hidden anyway ── */
+  .nav-group-label{display:none}
 }
 
-/* ── Very small phones ── */
-@media (max-width: 380px) {
-  .kpi-val{font-size:16px}
-  .kpi-grid{gap:7px}
-  .mob-nav-btn{padding:8px 10px;min-width:44px}
+/* ── Very small phones (SE etc) ── */
+@media (max-width: 375px) {
+  .page{padding:12px 12px calc(90px + env(safe-area-inset-bottom));gap:10px}
+  .kpi-val{font-size:17px}
+  .kpi-grid{gap:8px}
+  .mob-nav-btn{padding:6px 8px;min-width:42px;font-size:8px}
+  .mob-fab{width:48px;height:48px}
+  .card,.card-gold{padding:12px}
 }
 </style>
 </head>
@@ -1689,7 +1752,8 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <div id="mobMoreMenu">
   <div id="mobMoreBackdrop" onclick="closeMobMenu()"></div>
   <div id="mobMorePanel">
-    <div style="padding:16px 20px 8px;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-weight:700">Navigation</div>
+    <div class="mob-handle"></div>
+    <div style="padding:8px 20px 4px;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-weight:700">Navigation</div>
     <button class="mob-more-item" onclick="goPage('holdings');closeMobMenu()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>Holdings</button>
     <button class="mob-more-item" onclick="goPage('analytics');closeMobMenu()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>Analytics</button>
     <button class="mob-more-item" onclick="goPage('insights');closeMobMenu()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Insights</button>
