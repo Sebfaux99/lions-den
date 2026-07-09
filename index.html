@@ -989,7 +989,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         Scan Slip
       </button>
-      <button class="primary-btn" onclick="openModal()">
+      <button class="primary-btn" onclick="openLogBet()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
         Log Bet
       </button>
@@ -1303,6 +1303,89 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
       </div>
     </div>
 
+  </div>
+
+  <!-- ═══ MOBILE LOG BET PAGE ═══ -->
+  <div class="page" id="pg-logbet-mobile">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;flex-shrink:0">
+      <button onclick="goPage('dashboard')" style="background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;padding:4px;display:flex;align-items:center;gap:4px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        Back
+      </button>
+      <div style="font-family:var(--serif);font-size:18px;font-weight:600;color:#fff;font-style:italic">Log a Bet</div>
+    </div>
+
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="padding:16px 16px 0">
+
+        <div style="margin-bottom:14px">
+          <label class="flabel" style="display:block;margin-bottom:6px">Sport *</label>
+          <select class="fselect" id="mSport" style="font-size:16px;padding:13px 14px;width:100%">
+            <option value="">Select sport…</option>
+            <option>Football</option><option>Tennis</option><option>Horse Racing</option>
+            <option>Basketball</option><option>Golf</option><option>Cricket</option>
+            <option>Rugby</option><option>Boxing</option><option>MMA</option><option>Other</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom:14px">
+          <label class="flabel" style="display:block;margin-bottom:6px">Event / Match *</label>
+          <input class="finput" id="mEvent" placeholder="e.g. Arsenal vs Man City" style="font-size:16px;padding:13px 14px;width:100%">
+        </div>
+
+        <div style="margin-bottom:14px">
+          <label class="flabel" style="display:block;margin-bottom:6px">Selection *</label>
+          <input class="finput" id="mMarket" placeholder="e.g. Arsenal to Win" style="font-size:16px;padding:13px 14px;width:100%">
+        </div>
+
+        <div style="margin-bottom:14px">
+          <label class="flabel" style="display:block;margin-bottom:6px">Bookmaker *</label>
+          <select class="fselect" id="mBook" style="font-size:16px;padding:13px 14px;width:100%">
+            <option value="">Select bookmaker…</option>
+            <option>bet365</option><option>Betfair Exchange</option><option>Paddy Power</option>
+            <option>William Hill</option><option>Sky Bet</option><option>Smarkets</option>
+            <option>Betway</option><option>Coral</option><option>Ladbrokes</option>
+            <option>Unibet</option><option>BoyleSports</option>
+          </select>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+          <div>
+            <label class="flabel" style="display:block;margin-bottom:6px">Stake (£) *</label>
+            <input class="finput mono" id="mStake" type="number" inputmode="decimal" placeholder="0.00" style="font-size:16px;padding:13px 14px;width:100%">
+          </div>
+          <div>
+            <label class="flabel" style="display:block;margin-bottom:6px">Odds *</label>
+            <input class="finput mono" id="mOdds" type="number" inputmode="decimal" placeholder="2.00" style="font-size:16px;padding:13px 14px;width:100%">
+          </div>
+        </div>
+
+        <div style="margin-bottom:14px">
+          <label class="flabel" style="display:block;margin-bottom:6px">Result</label>
+          <select class="fselect" id="mStatus" style="font-size:16px;padding:13px 14px;width:100%">
+            <option value="open">Open — pending</option>
+            <option value="won">Won ✓</option>
+            <option value="lost">Lost ✗</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom:20px">
+          <label class="flabel" style="display:block;margin-bottom:6px">Date</label>
+          <input class="finput" id="mDate" type="date" style="font-size:16px;padding:13px 14px;width:100%">
+        </div>
+
+      </div>
+
+      <!-- Error message -->
+      <div id="mBetError" style="display:none;margin:0 16px 14px;padding:10px 13px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;font-size:13px;color:var(--red)"></div>
+
+      <!-- Submit button — always visible, not in a modal -->
+      <div style="padding:0 16px 32px">
+        <button onclick="submitMobileBet()" style="width:100%;padding:16px;background:linear-gradient(135deg,#C9A84C,#A8893C);color:#03020A;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;letter-spacing:0.3px;box-shadow:0 4px 16px rgba(201,168,76,0.35)">
+          Log Bet
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- ═══ CONCIERGE ═══ -->
@@ -1744,7 +1827,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     </div>
     <span>Bets</span>
   </button>
-  <button class="mob-fab" onclick="openModal()">
+  <button class="mob-fab" onclick="openLogBet()">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
   </button>
   <button class="mob-nav-btn" id="mnMarkets" onclick="goPage('markets')">
@@ -1784,14 +1867,15 @@ const SPORT_ICONS = {Football:'⚽',Tennis:'🎾','Horse Racing':'🐎',Basketba
 const COLOURS = ['#D4A843','#5B8DEF','#16C784','#E84040','#9B6EF3','#F59E0B','#EC4899','#06B6D4','#84CC16','#EF4444'];
 
 const PAGE_META = {
-  dashboard:  {title:'Dashboard',   sub:'Your portfolio at a glance'},
-  betlog:     {title:'Bet Log',     sub:'Every position in one place'},
-  holdings:   {title:'Holdings',    sub:'Performance by sport and strategy'},
-  analytics:  {title:'Analytics',   sub:'Deep dive into your numbers'},
-  insights:   {title:'Insights',    sub:'Signals, alerts and intelligence'},
-  markets:    {title:'Markets',     sub:'Live odds and best price comparison'},
-  concierge:  {title:'Concierge',   sub:'Private client services'},
-  settings:   {title:'Settings',    sub:'Account and preferences'},
+  dashboard:        {title:'Dashboard',    sub:'Your portfolio at a glance'},
+  betlog:           {title:'Bet Log',      sub:'Every position in one place'},
+  'logbet-mobile':  {title:'Log a Bet',    sub:'Record a new position'},
+  holdings:         {title:'Holdings',     sub:'Performance by sport and strategy'},
+  analytics:        {title:'Analytics',    sub:'Deep dive into your numbers'},
+  insights:         {title:'Insights',     sub:'Signals, alerts and intelligence'},
+  markets:          {title:'Markets',      sub:'Live odds and best price comparison'},
+  concierge:        {title:'Concierge',    sub:'Private client services'},
+  settings:         {title:'Settings',     sub:'Account and preferences'},
 };
 
 // ═══════════════════════════════════════════════════════
@@ -2925,7 +3009,73 @@ function setPeriod(p,btn) {
   renderDashboard();
 }
 
-// ── Mobile nav ────────────────────────────────────────
+// ── Mobile Log Bet page ───────────────────────────────
+function openLogBet() {
+  const isMobile = window.innerWidth <= 768;
+  if (isMobile) {
+    // Set today's date
+    const d = document.getElementById('mDate');
+    if (d && !d.value) d.value = new Date().toISOString().slice(0,10);
+    goPage('logbet-mobile');
+  } else {
+    openModal();
+  }
+}
+
+function submitMobileBet() {
+  const sport  = document.getElementById('mSport').value;
+  const event  = document.getElementById('mEvent').value.trim();
+  const market = document.getElementById('mMarket').value.trim();
+  const book   = document.getElementById('mBook').value;
+  const stake  = parseFloat(document.getElementById('mStake').value);
+  const odds   = parseFloat(document.getElementById('mOdds').value);
+  const status = document.getElementById('mStatus').value;
+  const date   = document.getElementById('mDate').value;
+
+  const errEl  = document.getElementById('mBetError');
+
+  if (!sport || !event || !market || !book || !stake || !odds || odds <= 1) {
+    errEl.textContent = 'Please fill in all required fields.';
+    errEl.style.display = 'block';
+    errEl.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  errEl.style.display = 'none';
+
+  const pnl = status==='won' ? parseFloat((stake*(odds-1)).toFixed(2))
+            : status==='lost' ? -stake : null;
+  const ts  = date
+    ? new Date(date+'T12:00:00').toISOString()
+    : new Date().toISOString();
+
+  const newBet = {
+    id:'bet_'+Date.now()+'_'+Math.random().toString(36).slice(2,5),
+    sport, league:'', event, market, book, stake, odds, status,
+    strategy:'Value Betting', clv:null, notes:'', pnl, timestamp:ts,
+  };
+
+  if (cfg.isDemo) {
+    bets = [newBet];
+    cfg.isDemo = false;
+    if (currentUser) sb.from('bets').delete().eq('user_id', currentUser.id).then(()=>{});
+  } else {
+    bets.unshift(newBet);
+  }
+
+  save();
+  syncBetToSupabase(newBet);
+  renderAll();
+  flashKpis();
+
+  // Reset form
+  ['mSport','mBook','mStatus'].forEach(id => document.getElementById(id).selectedIndex=0);
+  ['mEvent','mMarket','mStake','mOdds'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('mStatus').value = 'open';
+  document.getElementById('mDate').value = new Date().toISOString().slice(0,10);
+
+  toast('ok','✅',market, fc(stake)+' @ '+odds);
+  goPage('betlog');
+}
 const MOB_NAV_MAP = {
   dashboard:'mnDashboard', betlog:'mnBets',
   markets:'mnMarkets',
