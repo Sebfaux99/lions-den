@@ -1,0 +1,34 @@
+name: Keep Supabase Alive
+
+# Runs every 3 days to prevent Supabase free tier from pausing
+# Supabase pauses projects after 7 days of inactivity — this pings it every 3 days
+
+on:
+  schedule:
+    - cron: '0 9 */3 * *'   # 9am UTC every 3 days
+  workflow_dispatch:          # Allow manual trigger from Actions tab
+
+jobs:
+  ping:
+    name: Ping Supabase
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase health endpoint
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            "https://kemmhmpapujyrzcjvcrt.supabase.co/rest/v1/" \
+            -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtlbW1obXBhcHVqeXJ6Y2p2Y3J0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzMzAyODcsImV4cCI6MjA5ODkwNjI4N30.SuWHWVsYwGlcSuFU5vawNbSFmYOVyu3hvza5RkKR6AQ")
+          echo "Supabase ping status: $STATUS"
+          if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 500 ]; then
+            echo "✅ Supabase is alive (HTTP $STATUS)"
+          else
+            echo "⚠️ Unexpected status: $STATUS"
+          fi
+
+      - name: Ping auth endpoint
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            "https://kemmhmpapujyrzcjvcrt.supabase.co/auth/v1/health" \
+            -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtlbW1obXBhcHVqeXJ6Y2p2Y3J0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzMzAyODcsImV4cCI6MjA5ODkwNjI4N30.SuWHWVsYwGlcSuFU5vawNbSFmYOVyu3hvza5RkKR6AQ")
+          echo "Auth ping status: $STATUS"
+          echo "✅ Keep-alive complete — Supabase will not pause"
